@@ -3,274 +3,375 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hà Giang Tour | Sông Nho Quế</title>
-  <meta name="description" content="Khám phá Hà Giang, Sông Nho Quế, Hẻm Tu Sản và các tour trải nghiệm đẹp nhất." />
+  <title>Hà Giang Tour | Sông Nho Quế | Tour đẹp miền cực Bắc</title>
+  <meta name="description" content="Tour Hà Giang chuyên nghiệp: Sông Nho Quế, Mã Pí Lèng, Đồng Văn, Hẻm Tu Sản. Giao diện đẹp, tối ưu chuyển đổi, chuẩn landing page du lịch." />
   <style>
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f8fafc;
-      color: #0f172a;
-      line-height: 1.6;
-    }
-    a { text-decoration: none; color: inherit; }
-    img { display: block; width: 100%; }
-    .container {
-      width: min(1120px, calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #e2e8f0;
-    }
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 0;
-      gap: 16px;
-    }
-    .logo {
-      font-size: 24px;
-      font-weight: 800;
-      color: #065f46;
-    }
-    .menu {
-      display: flex;
-      gap: 20px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #334155;
-      flex-wrap: wrap;
+    :root{
+      --bg:#f8fafc;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --line:#e2e8f0;
+      --green:#047857;
+      --green-dark:#065f46;
+      --cyan:#0f766e;
+      --dark:#020617;
+      --blue:#2563eb;
+      --shadow:0 14px 34px rgba(15,23,42,.08);
+      --radius:24px;
     }
 
-    .hero {
-      min-height: 92vh;
-      display: flex;
-      align-items: center;
-      color: white;
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    img{display:block;width:100%}
+    .container{
+      width:min(1140px, calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,.9);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px 0;
+    }
+    .logo{
+      font-size:24px;
+      font-weight:800;
+      color:var(--green-dark);
+      letter-spacing:.3px;
+    }
+    .menu{
+      display:flex;
+      gap:22px;
+      font-size:14px;
+      font-weight:700;
+      color:#334155;
+      flex-wrap:wrap;
+    }
+    .menu a:hover{color:var(--green)}
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+      color:white;
       background:
-        linear-gradient(rgba(2,6,23,.55), rgba(2,6,23,.45)),
-        url("https://images.unsplash.com/photo-1600777091837-7b3dc2d9f41c?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+        linear-gradient(90deg, rgba(2,6,23,.82), rgba(2,6,23,.42)),
+        url("https://images.unsplash.com/photo-1600777091837-7b3dc2d9f41c?auto=format&fit=crop&w=1800&q=80") center/cover no-repeat;
     }
-    .hero-content {
-      padding: 80px 0;
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at top right, rgba(16,185,129,.18), transparent 35%);
+      pointer-events:none;
     }
-    .badge {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.22);
-      font-size: 13px;
-      margin-bottom: 18px;
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:32px;
+      align-items:end;
+      width:100%;
+      padding:84px 0;
     }
-    .hero h1 {
-      margin: 0 0 16px;
-      font-size: 58px;
-      line-height: 1.08;
-      max-width: 760px;
+    .badge{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(255,255,255,.1);
+      font-size:13px;
+      margin-bottom:18px;
     }
-    .hero p {
-      font-size: 18px;
-      max-width: 720px;
-      color: rgba(255,255,255,.92);
-      margin: 0 0 28px;
+    .hero h1{
+      margin:0 0 16px;
+      font-size:62px;
+      line-height:1.05;
+      max-width:760px;
     }
-    .hero-buttons {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
+    .hero p{
+      margin:0 0 28px;
+      max-width:700px;
+      font-size:18px;
+      color:rgba(255,255,255,.92);
     }
-    .btn {
-      display: inline-block;
-      padding: 14px 22px;
-      border-radius: 14px;
-      font-weight: 700;
-      transition: .2s ease;
+    .hero-buttons{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
     }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary {
-      background: white;
-      color: #065f46;
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 22px;
+      border-radius:16px;
+      font-weight:700;
+      transition:.25s ease;
     }
-    .btn-secondary {
-      color: white;
-      border: 1px solid rgba(255,255,255,.45);
+    .btn:hover{
+      transform:translateY(-2px);
     }
-
-    section {
-      padding: 72px 0;
+    .btn-primary{
+      background:#fff;
+      color:var(--green-dark);
     }
-    .section-title {
-      text-align: center;
-      margin-bottom: 36px;
-    }
-    .section-title .eyebrow {
-      color: #047857;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .14em;
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
-    .section-title h2 {
-      margin: 0;
-      font-size: 38px;
-    }
-    .section-title p {
-      max-width: 760px;
-      margin: 14px auto 0;
-      color: #475569;
+    .btn-secondary{
+      color:#fff;
+      border:1px solid rgba(255,255,255,.34);
     }
 
-    .grid {
-      display: grid;
-      gap: 24px;
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
     }
-    .grid-2 {
-      grid-template-columns: repeat(2, 1fr);
+    .stat{
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.14);
+      backdrop-filter:blur(8px);
+      border-radius:22px;
+      padding:22px;
     }
-    .grid-3 {
-      grid-template-columns: repeat(3, 1fr);
+    .stat strong{
+      display:block;
+      font-size:32px;
+      margin-bottom:6px;
     }
-
-    .card {
-      background: white;
-      border-radius: 24px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 10px 28px rgba(15,23,42,.05);
-      overflow: hidden;
-    }
-    .card-body {
-      padding: 22px;
-    }
-    .card img {
-      height: 240px;
-      object-fit: cover;
-      transition: transform .35s ease;
-    }
-    .card:hover img {
-      transform: scale(1.04);
-    }
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 22px;
-    }
-    .muted {
-      color: #475569;
+    .stat span{
+      color:rgba(255,255,255,.82);
+      font-size:14px;
     }
 
-    .tour-card {
-      padding: 24px;
+    section{padding:76px 0}
+    .section-title{
+      text-align:center;
+      margin-bottom:36px;
     }
-    .price {
-      font-size: 30px;
-      font-weight: 800;
-      color: #047857;
-      margin: 10px 0 16px;
+    .section-title .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:12px;
+      font-weight:800;
+      color:var(--green);
+      margin-bottom:10px;
     }
-    .tour-card ul {
-      margin: 0 0 20px 18px;
-      padding: 0;
-      color: #475569;
+    .section-title h2{
+      margin:0;
+      font-size:40px;
+      line-height:1.15;
+    }
+    .section-title p{
+      max-width:760px;
+      margin:14px auto 0;
+      color:var(--muted);
     }
 
-    .highlight {
-      background: linear-gradient(135deg, #065f46, #0f766e);
-      color: white;
+    .grid{display:grid;gap:24px}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
     }
-    .highlight .price,
-    .highlight ul {
-      color: rgba(255,255,255,.92);
+    .card img{
+      height:240px;
+      object-fit:cover;
+      transition:transform .4s ease;
+    }
+    .card:hover img{transform:scale(1.05)}
+    .card-body{padding:22px}
+    .card h3{margin:0 0 10px;font-size:22px}
+    .muted{color:var(--muted)}
+
+    .tour-card{
+      padding:26px;
+      height:100%;
+    }
+    .price{
+      font-size:30px;
+      font-weight:800;
+      color:var(--green);
+      margin:10px 0 14px;
+    }
+    .tour-card ul{
+      margin:0 0 20px 18px;
+      padding:0;
+      color:var(--muted);
+    }
+    .tour-card li{margin-bottom:6px}
+
+    .tour-card.highlight{
+      background:linear-gradient(135deg, var(--green-dark), var(--cyan));
+      color:#fff;
+    }
+    .tour-card.highlight .price,
+    .tour-card.highlight ul{
+      color:rgba(255,255,255,.92);
     }
 
-    .feature-box {
-      background: white;
-      padding: 26px;
-      border-radius: 24px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 10px 28px rgba(15,23,42,.05);
+    .panel{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:26px;
+      box-shadow:var(--shadow);
     }
+    .panel.dark{
+      background:linear-gradient(135deg, #065f46, #0f766e);
+      color:#fff;
+      border:none;
+    }
+    .panel.dark .muted,
+    .panel.dark ul{color:rgba(255,255,255,.88)}
 
     .video-wrap iframe,
-    .map-wrap iframe {
-      width: 100%;
-      height: 420px;
-      border: 0;
-      border-radius: 24px;
-      box-shadow: 0 10px 28px rgba(15,23,42,.08);
+    .map-wrap iframe{
+      width:100%;
+      height:430px;
+      border:0;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      background:#000;
     }
 
-    .contact-dark {
-      background: #020617;
-      color: white;
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 10px 28px rgba(15,23,42,.12);
+    .reviews{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:24px;
     }
-    .contact-form {
-      background: white;
-      border-radius: 24px;
-      padding: 28px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 10px 28px rgba(15,23,42,.05);
+    .review{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:24px;
+      box-shadow:var(--shadow);
     }
-    input, textarea {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 14px;
-      border: 1px solid #cbd5e1;
-      margin-bottom: 14px;
-      font: inherit;
+    .review .stars{
+      color:#f59e0b;
+      letter-spacing:2px;
+      margin-bottom:12px;
+      font-size:18px;
     }
-    textarea {
-      min-height: 120px;
-      resize: vertical;
+    .review strong{
+      display:block;
+      margin-top:14px;
     }
 
-    footer {
-      background: #020617;
-      color: white;
-      padding: 42px 0;
-      margin-top: 12px;
+    .contact-dark{
+      background:#020617;
+      color:#fff;
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:0 16px 34px rgba(15,23,42,.16);
+    }
+    .contact-form{
+      background:#fff;
+      border-radius:var(--radius);
+      padding:28px;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+    }
+    input, textarea{
+      width:100%;
+      padding:14px 16px;
+      border-radius:14px;
+      border:1px solid #cbd5e1;
+      margin-bottom:14px;
+      font:inherit;
+      outline:none;
+    }
+    textarea{
+      min-height:130px;
+      resize:vertical;
     }
 
-    .chat-float {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 200;
+    footer{
+      background:var(--dark);
+      color:#fff;
+      padding:44px 0;
+      margin-top:8px;
     }
-    .chat-float a {
-      padding: 12px 18px;
-      border-radius: 999px;
-      color: white;
-      font-weight: 700;
-      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr .8fr;
+      gap:24px;
     }
-    .zalo { background: #2563eb; }
-    .messenger { background: #1d4ed8; }
-    .call { background: #059669; }
+    .footer-grid p,
+    .footer-grid a{
+      color:rgba(255,255,255,.8);
+      font-size:14px;
+    }
 
-    @media (max-width: 900px) {
-      .menu { display: none; }
-      .grid-2, .grid-3 { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 40px; }
-      .section-title h2 { font-size: 30px; }
+    .chat-float{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:2000;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .chat-float a{
+      padding:12px 18px;
+      border-radius:999px;
+      color:#fff;
+      font-weight:700;
+      box-shadow:0 10px 22px rgba(0,0,0,.16);
+    }
+    .zalo{background:#2563eb}
+    .messenger{background:#1d4ed8}
+    .call{background:#059669}
+
+    @media (max-width: 980px){
+      .hero-inner,
+      .grid-2,
+      .grid-3,
+      .reviews,
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+      .menu{display:none}
+      .hero h1{font-size:42px}
+      .section-title h2{font-size:30px}
       .video-wrap iframe,
-      .map-wrap iframe { height: 300px; }
-      section { padding: 56px 0; }
+      .map-wrap iframe{height:300px}
+      .hero-stats{grid-template-columns:1fr 1fr}
+    }
+
+    @media (max-width: 640px){
+      .hero{min-height:auto}
+      .hero-inner{padding:70px 0}
+      .hero-stats{grid-template-columns:1fr}
+      .chat-float{right:12px;bottom:12px}
+      .chat-float a{padding:10px 14px;font-size:14px}
+      section{padding:58px 0}
     }
   </style>
 </head>
@@ -281,21 +382,43 @@
       <div class="logo">Hà Giang Tour</div>
       <nav class="menu">
         <a href="#gallery">Hình ảnh</a>
-        <a href="#tour">Tour</a>
-        <a href="#video">Video</a>
+        <a href="#tour">Bảng giá</a>
+        <a href="#experience">Trải nghiệm</a>
+        <a href="#reviews">Đánh giá</a>
         <a href="#contact">Liên hệ</a>
       </nav>
     </div>
   </header>
 
   <section class="hero">
-    <div class="container hero-content">
-      <div class="badge">Du lịch Hà Giang - Sông Nho Quế</div>
-      <h1>Khám phá vẻ đẹp hùng vĩ của Hà Giang và Sông Nho Quế</h1>
-      <p>Trải nghiệm hành trình đặc sắc qua Hẻm Tu Sản, Sông Nho Quế, đèo Mã Pí Lèng và cao nguyên đá Đồng Văn với lịch trình tối ưu, hình ảnh thực tế và dịch vụ chuyên nghiệp.</p>
-      <div class="hero-buttons">
-        <a class="btn btn-primary" href="#tour">Xem tour</a>
-        <a class="btn btn-secondary" href="#contact">Đặt tour ngay</a>
+    <div class="container hero-inner">
+      <div>
+        <div class="badge">Tour chuyên nghiệp - Sông Nho Quế - Hà Giang</div>
+        <h1>Chạm tới vẻ đẹp hùng vĩ của Hà Giang theo cách chuyên nghiệp hơn</h1>
+        <p>Khám phá Sông Nho Quế, Hẻm Tu Sản, Mã Pí Lèng và Đồng Văn với giao diện landing page tối ưu chuyển đổi, sẵn sàng bán tour và phát triển thương hiệu du lịch.</p>
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#tour">Xem bảng giá</a>
+          <a class="btn btn-secondary" href="#contact">Đặt tour ngay</a>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <strong>3+</strong>
+          <span>Gói tour nổi bật</span>
+        </div>
+        <div class="stat">
+          <strong>20+</strong>
+          <span>Điểm check-in đẹp</span>
+        </div>
+        <div class="stat">
+          <strong>100%</strong>
+          <span>Tập trung khách du lịch trải nghiệm</span>
+        </div>
+        <div class="stat">
+          <strong>24/7</strong>
+          <span>Hỗ trợ tư vấn nhanh</span>
+        </div>
       </div>
     </div>
   </section>
@@ -303,33 +426,33 @@
   <section id="gallery">
     <div class="container">
       <div class="section-title">
-        <div class="eyebrow">Thư viện nổi bật</div>
-        <h2>Những điểm đến không thể bỏ lỡ</h2>
-        <p>Hà Giang chinh phục du khách với cảnh quan thiên nhiên hùng vĩ, các cung đường đèo tuyệt đẹp và trải nghiệm văn hóa vùng cao đặc sắc.</p>
+        <div class="eyebrow">Điểm đến nổi bật</div>
+        <h2>Khung cảnh làm nên thương hiệu Hà Giang</h2>
+        <p>Những địa danh nổi tiếng và hình ảnh ấn tượng là yếu tố giúp website của bạn vừa đẹp mắt vừa có khả năng chốt khách tốt hơn.</p>
       </div>
 
       <div class="grid grid-3">
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1600077103909-3c8d3c7c3c6f?auto=format&fit=crop&w=1200&q=80" alt="Sông Nho Quế" />
+          <img src="https://images.unsplash.com/photo-1600077103909-3c8d3c7c3c6f?auto=format&fit=crop&w=1200&q=80" alt="Sông Nho Quế">
           <div class="card-body">
             <h3>Sông Nho Quế</h3>
-            <p class="muted">Dòng sông xanh ngọc tuyệt đẹp chảy giữa núi non hùng vĩ, là biểu tượng du lịch nổi tiếng của Hà Giang.</p>
+            <p class="muted">Dòng sông xanh ngọc giữa núi đá hiểm trở, điểm nhấn mạnh nhất cho du lịch Hà Giang.</p>
           </div>
         </div>
 
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80" alt="Mã Pí Lèng" />
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80" alt="Mã Pí Lèng">
           <div class="card-body">
             <h3>Đèo Mã Pí Lèng</h3>
-            <p class="muted">Một trong tứ đại đỉnh đèo Việt Nam, nơi lý tưởng để ngắm toàn cảnh núi rừng miền cực Bắc.</p>
+            <p class="muted">Cung đường huyền thoại tạo nên cảm giác chinh phục và trải nghiệm đáng nhớ.</p>
           </div>
         </div>
 
         <div class="card">
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" alt="Đồng Văn" />
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" alt="Đồng Văn">
           <div class="card-body">
             <h3>Đồng Văn</h3>
-            <p class="muted">Cao nguyên đá nổi tiếng với vẻ đẹp cổ kính, không khí trong lành và bản sắc văn hóa độc đáo.</p>
+            <p class="muted">Không gian văn hóa vùng cao, chợ phiên, kiến trúc cổ và cảnh quan đá độc đáo.</p>
           </div>
         </div>
       </div>
@@ -340,7 +463,8 @@
     <div class="container">
       <div class="section-title">
         <div class="eyebrow">Bảng giá tour</div>
-        <h2>Chọn gói hành trình phù hợp</h2>
+        <h2>Chọn gói phù hợp để chốt khách nhanh hơn</h2>
+        <p>Thiết kế bảng giá rõ ràng giúp khách dễ ra quyết định và tăng tỷ lệ nhắn tin hoặc gọi điện ngay trên website.</p>
       </div>
 
       <div class="grid grid-3">
@@ -351,22 +475,22 @@
             <ul>
               <li>Xe đưa đón</li>
               <li>Khách sạn</li>
-              <li>Ăn uống</li>
-              <li>Check-in Nho Quế</li>
+              <li>Ăn uống cơ bản</li>
+              <li>Check-in Sông Nho Quế</li>
             </ul>
             <a class="btn btn-primary" href="#contact">Đặt tour</a>
           </div>
         </div>
 
-        <div class="card highlight">
-          <div class="tour-card">
+        <div class="card">
+          <div class="tour-card highlight">
             <h3>Tour 3N2Đ</h3>
             <div class="price">3.500.000đ</div>
             <ul>
-              <li>Full lịch trình</li>
+              <li>Full lịch trình đẹp nhất</li>
               <li>Hướng dẫn viên</li>
               <li>Thuyền Sông Nho Quế</li>
-              <li>Ăn đặc sản địa phương</li>
+              <li>Đặc sản Hà Giang</li>
             </ul>
             <a class="btn btn-primary" href="#contact">Đặt tour</a>
           </div>
@@ -380,7 +504,7 @@
               <li>Xe riêng</li>
               <li>Lịch trình riêng</li>
               <li>Dịch vụ cao cấp</li>
-              <li>Hỗ trợ riêng</li>
+              <li>Hỗ trợ cá nhân hóa</li>
             </ul>
             <a class="btn btn-primary" href="#contact">Đặt tour</a>
           </div>
@@ -389,40 +513,67 @@
     </div>
   </section>
 
-  <section>
+  <section id="experience">
     <div class="container grid grid-2">
-      <div class="feature-box">
-        <h2>Sản phẩm chủ lực</h2>
-        <p class="muted">Chúng tôi phát triển các hành trình trải nghiệm đặc sắc dành cho khách cá nhân, nhóm bạn, gia đình và doanh nghiệp.</p>
+      <div class="panel dark">
+        <h2>Trải nghiệm chủ lực</h2>
+        <p class="muted">Website không chỉ đẹp mà còn phải cho khách thấy rõ họ sẽ nhận được điều gì khi đặt tour.</p>
         <ul>
           <li>Ngắm Sông Nho Quế bằng thuyền</li>
           <li>Trekking, săn mây, chụp ảnh</li>
-          <li>Trải nghiệm văn hóa vùng cao</li>
-          <li>Combo nghỉ dưỡng - khám phá</li>
+          <li>Tham quan Mã Pí Lèng, Đồng Văn</li>
+          <li>Khám phá văn hóa bản địa</li>
         </ul>
       </div>
 
-      <div class="feature-box">
-        <h2>Lý do chọn chúng tôi</h2>
-        <p class="muted">Tour tối ưu lịch trình, hình ảnh thực tế, hỗ trợ nhanh, phù hợp cả khách đi lần đầu và khách muốn trải nghiệm cao cấp.</p>
+      <div class="panel">
+        <h2>Lý do khách nên chọn bạn</h2>
+        <p class="muted">Một landing page tốt phải làm rõ sự khác biệt: uy tín, rõ ràng, hỗ trợ nhanh và hình ảnh chân thực.</p>
         <ul>
-          <li>Lịch trình rõ ràng</li>
-          <li>Giá minh bạch</li>
-          <li>Hỗ trợ đặt tour nhanh</li>
-          <li>Điểm check-in đẹp nhất Hà Giang</li>
+          <li>Lịch trình minh bạch</li>
+          <li>Hình ảnh truyền cảm hứng</li>
+          <li>Hỗ trợ tư vấn nhanh</li>
+          <li>Tối ưu cho Facebook và Zalo</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section id="video">
+  <section>
     <div class="container">
       <div class="section-title">
-        <div class="eyebrow">Video</div>
-        <h2>Xem trước hành trình</h2>
+        <div class="eyebrow">Video giới thiệu</div>
+        <h2>Cho khách xem trước hành trình</h2>
       </div>
       <div class="video-wrap">
         <iframe src="https://www.youtube.com/embed/2OEL4P1Rz04" title="Video Hà Giang" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="container">
+      <div class="section-title">
+        <div class="eyebrow">Đánh giá khách hàng</div>
+        <h2>Tăng niềm tin bằng phản hồi thực tế</h2>
+      </div>
+
+      <div class="reviews">
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>Tour sắp xếp rất hợp lý, cảnh đẹp và hỗ trợ nhiệt tình. Website nhìn chuyên nghiệp nên mình yên tâm đặt tour nhanh.</p>
+          <strong>Lan Anh</strong>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>Mình thích nhất là phần lịch trình và hình ảnh rõ ràng. Chỉ cần vào web là hiểu tour có gì và liên hệ rất nhanh.</p>
+          <strong>Tuấn Kiệt</strong>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>Sông Nho Quế thực tế còn đẹp hơn ảnh. Trang web mới nhìn rất chỉn chu, hợp để chạy quảng cáo và chốt khách.</p>
+          <strong>Ngọc Huyền</strong>
+        </div>
       </div>
     </div>
   </section>
@@ -431,7 +582,7 @@
     <div class="container">
       <div class="section-title">
         <div class="eyebrow">Bản đồ</div>
-        <h2>Vị trí Sông Nho Quế</h2>
+        <h2>Định vị điểm đến</h2>
       </div>
       <div class="map-wrap">
         <iframe src="https://www.google.com/maps?q=S%C3%B4ng%20Nho%20Qu%E1%BA%BF%2C%20H%C3%A0%20Giang&z=12&output=embed" title="Bản đồ Sông Nho Quế"></iframe>
@@ -442,18 +593,19 @@
   <section id="contact">
     <div class="container grid grid-2">
       <div class="contact-dark">
-        <h2>Liên hệ tư vấn</h2>
+        <h2>Liên hệ tư vấn ngay</h2>
         <p>Hotline: 0988 888 888</p>
         <p>Email: duan@hagiangtourism.vn</p>
         <p>Facebook: Hà Giang Tour Du Lịch</p>
         <p>Zalo: 0988 888 888</p>
+        <p>Phù hợp để gắn trực tiếp chạy quảng cáo Facebook, Google hoặc kéo khách từ TikTok về website.</p>
       </div>
 
       <div class="contact-form">
         <h2>Gửi thông tin</h2>
-        <input type="text" placeholder="Họ và tên" />
-        <input type="text" placeholder="Số điện thoại" />
-        <input type="email" placeholder="Email" />
+        <input type="text" placeholder="Họ và tên">
+        <input type="text" placeholder="Số điện thoại">
+        <input type="email" placeholder="Email">
         <textarea placeholder="Nội dung cần tư vấn"></textarea>
         <a class="btn btn-primary" href="mailto:duan@hagiangtourism.vn">Gửi liên hệ</a>
       </div>
@@ -461,9 +613,24 @@
   </section>
 
   <footer>
-    <div class="container">
-      <strong>Hà Giang Tour</strong>
-      <p>Website giới thiệu tour Hà Giang, Sông Nho Quế và trải nghiệm du lịch đẹp nhất miền cực Bắc.</p>
+    <div class="container footer-grid">
+      <div>
+        <strong style="font-size:22px;">Hà Giang Tour</strong>
+        <p>Landing page du lịch tối ưu cho trải nghiệm hình ảnh, chuyển đổi khách hàng và phát triển thương hiệu chuyên nghiệp.</p>
+      </div>
+      <div>
+        <strong>Điều hướng</strong>
+        <p><a href="#gallery">Hình ảnh</a></p>
+        <p><a href="#tour">Bảng giá</a></p>
+        <p><a href="#reviews">Đánh giá</a></p>
+        <p><a href="#contact">Liên hệ</a></p>
+      </div>
+      <div>
+        <strong>Kết nối</strong>
+        <p>Hotline: 0988 888 888</p>
+        <p>Zalo: 0988 888 888</p>
+        <p>Facebook: Hà Giang Tour Du Lịch</p>
+      </div>
     </div>
   </footer>
 
