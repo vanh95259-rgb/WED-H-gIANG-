@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stockinet - Trading Platform Pro</title>
-
-  <!-- Crisp Chat Widget (ID mới bạn vừa cung cấp) -->
+  <title>Stockinet - Trading Platform Demo</title>
+  <!-- Crisp Chat Widget -->
   <script type="text/javascript">
     window.$crisp = [];
-    window.CRISP_WEBSITE_ID = "bcf94eae-f2c5-450b-a9ec-d44f46a6c969";
+    window.CRISP_WEBSITE_ID = "40f6f91f-a448-4c3d-a982-f4b2a7f98144";
     (function() {
       var d = document;
       var s = d.createElement("script");
@@ -17,118 +16,309 @@
       d.getElementsByTagName("head")[0].appendChild(s);
     })();
   </script>
-
   <style>
     * { box-sizing: border-box; }
     :root {
       --bg: #070707; --panel: #121212; --panel-2: #1a1a1a; --muted: #7a7a83;
       --gold: #e7c46a; --green: #2fcb7d; --red: #ff4b63; --soft: #f4f4f5;
     }
-    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: radial-gradient(circle at top, #1e1e1e 0%, #090909 45%, #040404 100%); color: #fff; min-height: 100vh; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: radial-gradient(circle at top, #1e1e1e 0%, #090909 45%, #040404 100%); color: #fff; min-height: 100vh; }
     .app { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
-    .phone { width: 380px; max-width: 100%; height: 800px; border-radius: 48px; overflow: hidden; background: #000; border: 12px solid #111; box-shadow: 0 40px 80px rgba(0,0,0,.6); position: relative; }
-    .status-bar { height: 44px; background: #111; color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; font-size: 13px; font-weight: 600; }
-    .screen { position: relative; height: calc(100% - 44px); background: var(--bg); overflow: hidden; }
+    .phone { width: 380px; max-width: 100%; height: 800px; border-radius: 38px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,.08); box-shadow: 0 30px 70px rgba(0,0,0,.5); position: relative; }
+    .status-bar { height: 32px; background: #f3f4f6; color: #000; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: 14px; font-weight: 700; }
+    .screen { position: relative; height: calc(100% - 32px); background: var(--bg); overflow: hidden; }
     .view { height: 100%; display: none; position: relative; overflow: hidden; }
     .view.active { display: block; }
-    .scroll { height: 100%; overflow-y: auto; padding-bottom: 100px; scrollbar-width: none; }
+    .scroll { height: 100%; overflow-y: auto; padding-bottom: 88px; scrollbar-width: none; }
     .scroll::-webkit-scrollbar { display: none; }
-
-    .hero { height: 140px; background: linear-gradient(90deg, #2d2312, #5b4521, #24180f); display: flex; align-items: center; justify-content: center; flex-direction: column; }
-    .balance-box { background: rgba(255,255,255,.1); border-radius: 20px; padding: 12px 24px; text-align: center; width: 90%; margin: 0 auto; }
-    .shortcut-wrap { padding: 0 16px; margin-top: -30px; position: relative; z-index: 5; }
-    .shortcut-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .shortcut { border: 1px solid rgba(255,255,255,.08); border-radius: 20px; background: #141414; text-align: center; padding: 14px 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s; }
-    .tabs { display: grid; grid-template-columns: repeat(2,1fr); padding: 0 16px; background: #232323; }
-    .tab { text-align: center; padding: 14px; font-size: 17px; font-weight: 700; color: #9ca3af; cursor: pointer; border-bottom: 3px solid transparent; }
-    .tab.active { color: var(--gold); border-bottom: 3px solid var(--gold); }
+    .hero { height: 118px; background: linear-gradient(90deg,#2d2312,#5b4521,#24180f); }
+    .shortcut-wrap { padding: 0 16px; margin-top: -16px; }
+    .shortcut-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .shortcut { border: 1px solid rgba(255,255,255,.05); border-radius: 18px; background: #141414; text-align: center; padding: 16px 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .gold { color: var(--gold); }
+    .tabs { display: grid; grid-template-columns: repeat(2,1fr); margin-top: 16px; padding: 16px 16px 0; background: #232323; }
+    .tab { text-align: center; padding-bottom: 12px; font-size: 18px; font-weight: 700; color: #9ca3af; cursor: pointer; }
+    .tab.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
     .market-list { background: var(--panel-2); }
-    .market-row { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 1px solid rgba(255,255,255,.06); cursor: pointer; }
-    .market-left { display: flex; align-items: center; gap: 14px; }
-    .pair { font-size: 19px; font-weight: 700; }
-    .price-info { text-align: right; }
-    .price { font-size: 22px; font-weight: 700; }
+    .market-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 16px; border-bottom: 1px solid rgba(255,255,255,.05); cursor: pointer; }
+    .market-left { display: flex; gap: 12px; align-items: center; min-width: 0; }
+    .coin-stack { width: 26px; text-align: center; font-size: 12px; }
+    .coin-stack div:first-child { color: var(--gold); }
+    .coin-stack div:last-child { color: #d4d4d8; margin-top: 3px; }
+    .pair { font-size: 20px; line-height: 1.2; }
+    .pair-sub { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    .price-up { color: var(--green); }
+    .price-down { color: var(--red); }
     .top-card { background: var(--soft); color: #000; margin: 16px; border-radius: 28px; padding: 20px; }
-    .big-price { font-size: 52px; font-weight: 700; line-height: 1; margin: 8px 0; }
-    .canvas-container { margin: 16px; height: 320px; background: #1c1c1e; border-radius: 20px; overflow: hidden; }
-    .trade-params { background: #1a1a1a; margin: 16px; padding: 18px; border-radius: 20px; }
-    .btn-round { border: 0; border-radius: 999px; color: #fff; padding: 16px; font-size: 19px; font-weight: 700; cursor: pointer; flex: 1; }
-    .btn-green { background: linear-gradient(90deg, #2fcb7d, #22c55e); }
-    .btn-red { background: linear-gradient(90deg, #ff4b63, #ef4444); }
-    .bottom-nav { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(5,1fr); background: #111; border-top: 1px solid rgba(255,255,255,.1); padding: 8px 0; z-index: 100; }
-    .nav-item { text-align: center; color: #71717a; font-size: 12px; cursor: pointer; }
+    .big-price { font-size: 54px; line-height: 1; font-weight: 700; color: var(--red); margin-top: 8px; }
+    .trade-toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 0 16px; color: #9ca3af; font-weight: 600; }
+    .pill { border-radius: 999px; padding: 10px 16px; cursor: pointer; }
+    .time-link.active { color: #3b82f6; border-bottom: 2px solid #d4d4d8; padding-bottom: 8px; }
+    .chart-box { margin: 16px; height: 360px; background: #444; border: 1px solid rgba(255,255,255,.08); position: relative; overflow: hidden; }
+    .candles { position: absolute; inset: 20px 12px 14px 12px; display: flex; align-items: end; gap: 6px; }
+    .candle-wrap { flex: 1; position: relative; height: 100%; display: flex; justify-content: center; align-items: end; }
+    .wick, .body { background: #22c55e; }
+    .red { background: #dc2626; }
+    .btn-round { border: 0; border-radius: 999px; color: #fff; padding: 13px 18px; font-size: 18px; cursor: pointer; }
+    .btn-red { background: var(--red); }
+    .btn-green { background: var(--green); }
+    .bottom-nav { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(5,1fr); background: #0f0f0f; border-top: 1px solid rgba(255,255,255,.05); padding: 12px 0; }
+    .nav-item { text-align: center; color: #71717a; font-size: 13px; cursor: pointer; }
     .nav-item.active { color: var(--gold); }
-    .nav-icon { font-size: 24px; margin-bottom: 2px; display: block; }
-    .overlay { position: absolute; inset: 0; background: rgba(0,0,0,.75); display: none; align-items: flex-end; z-index: 200; }
+    .nav-icon { font-size: 20px; margin-bottom: 4px; }
+    .overlay { position: absolute; inset: 0; background: rgba(0,0,0,.48); display: none; align-items: center; justify-content: center; z-index: 20; padding: 16px; }
     .overlay.show { display: flex; }
-    .modal { width: 100%; background: #191919; border-radius: 28px 28px 0 0; overflow: hidden; }
-    .countdown { font-size: 42px; font-weight: 700; color: var(--gold); text-align: center; margin: 20px 0; }
-    .toast { position: absolute; top: 60px; left: 50%; transform: translateX(-50%); background: rgba(20,20,20,.95); border: 1px solid var(--gold); padding: 14px 20px; border-radius: 999px; font-size: 15px; z-index: 300; display: none; }
+    .modal { width: 100%; background: #191919; border: 1px solid rgba(255,255,255,.08); border-radius: 26px; overflow: hidden; }
+    .confirm-btn { width: 100%; border: 0; border-radius: 12px; padding: 16px; background: #3a3936; color: var(--gold); font-size: 18px; font-weight: 700; margin-top: 18px; cursor: pointer; }
+    .login-screen { background: radial-gradient(circle at top right, rgba(231,196,106,.18), transparent 35%), linear-gradient(180deg, #151515 0%, #090909 100%); padding: 24px; display: flex; flex-direction: column; justify-content: center; }
+    .brand-badge { width: 70px; height: 70px; margin: 0 auto 14px; border-radius: 22px; background: linear-gradient(135deg, #33250d, #c5a24f); display: flex; align-items: center; justify-content: center; font-size: 34px; color: #fff; }
+    .input-wrap { border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: #121212; padding: 0 14px; margin-bottom: 16px; }
+    .input-wrap input { width: 100%; height: 52px; background: transparent; border: 0; color: #fff; outline: none; font-size: 16px; }
+    .primary-btn { width: 100%; border: 0; border-radius: 12px; padding: 16px; background: var(--gold); color: #000; font-weight: 700; cursor: pointer; }
+    .toast { position: absolute; top: 50px; left: 50%; transform: translateX(-50%); background: rgba(20,20,20,.95); border: 1px solid rgba(255,255,255,.08); padding: 12px 16px; border-radius: 999px; font-size: 14px; z-index: 40; display: none; }
     .toast.show { display: block; }
   </style>
 </head>
 <body>
   <div class="app">
     <div class="phone">
-      <div class="status-bar">
-        <span id="statusTime">14:28</span>
-        <span>Stockinet • LIVE <span style="color:#2fcb7d;">●</span></span>
-        <span>85% ⚡</span>
-      </div>
-
+      <div class="status-bar"><span id="statusTime">20:12</span><span>◔ ))) 85%</span></div>
       <div class="screen">
         <div class="toast" id="toast"></div>
-
-        <!-- Login View -->
+        <!-- Login -->
         <section class="view active" id="loginView">
-          <div style="height:100%; background: linear-gradient(180deg, #151515, #090909); display:flex; flex-direction:column; justify-content:center; padding:40px 24px; text-align:center;">
-            <div style="margin-bottom:40px;">
-              <div style="width:90px;height:90px;margin:0 auto 20px;background:linear-gradient(135deg,#33250d,#c5a24f);border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:42px;box-shadow:0 0 40px rgba(231,196,106,.5);">✦</div>
-              <h1 style="font-size:32px;margin:0;">Stockinet</h1>
-              <p style="color:#aaa;">Nền tảng giao dịch chuyên nghiệp</p>
+          <div class="login-screen">
+            <div class="brand">
+              <div class="brand-badge">✦</div>
+              <h1>Stockinet</h1>
+              <p>Đăng nhập để bắt đầu giao dịch</p>
             </div>
-            <input id="loginUsername" type="text" value="nguyenthitoan" style="width:100%;background:#1f1f1f;border:none;border-radius:14px;padding:16px;color:#fff;font-size:17px;margin-bottom:16px;">
-            <input id="loginPassword" type="password" value="thitoan1982" style="width:100%;background:#1f1f1f;border:none;border-radius:14px;padding:16px;color:#fff;font-size:17px;margin-bottom:24px;">
-            <button id="loginBtn" style="width:100%;background:var(--gold);color:#000;border:none;border-radius:16px;padding:18px;font-size:18px;font-weight:700;">ĐĂNG NHẬP</button>
-            <div style="margin-top:20px;color:#888;font-size:13px;">Demo: nguyenthitoan / thitoan1982</div>
+            <div class="login-card">
+              <label class="label">Tên đăng nhập</label>
+              <div class="input-wrap"><input id="loginUsername" type="text" value="nguyenthitoan" /></div>
+              <label class="label">Mật khẩu</label>
+              <div class="input-wrap"><input id="loginPassword" type="password" value="thitoan1982" /></div>
+              <button class="primary-btn" id="loginBtn">Đăng nhập</button>
+              <div class="login-note" style="margin-top:15px;">Tài khoản demo:<br><strong>nguyenthitoan</strong> / <strong>thitoan1982</strong></div>
+            </div>
           </div>
         </section>
-
-        <!-- Home, Trade, History, Profile... (giữ nguyên logic từ phiên bản trước) -->
-        <!-- Để ngắn gọn, tôi giữ cấu trúc chính và các chức năng quan trọng. Bạn có thể copy phần body + script từ phiên bản Pro trước và thay Crisp script ở trên. -->
-
-        <!-- ... (các section homeView, tradeView, historyView, profileView, orderOverlay giống hệt phiên bản Pro tôi gửi lần trước) ... -->
-
+        <!-- Home View -->
+        <section class="view" id="homeView">
+          <div class="scroll">
+            <div class="hero"></div>
+            <div class="shortcut-wrap">
+              <div class="shortcut-grid">
+                <div class="shortcut">✦ Rút tiền</div>
+                <div class="shortcut">✦ Nạp tiền</div>
+                <div class="shortcut">✦ Tiếng Việt</div>
+              </div>
+            </div>
+            <div class="tabs">
+              <div class="tab" id="tabFx">Ngoại hối</div>
+              <div class="tab active" id="tabCrypto">Tiền điện tử</div>
+            </div>
+            <div class="market-list" id="marketList"></div>
+          </div>
+          <div class="bottom-nav" data-nav>
+            <div class="nav-item active" data-view="homeView"><div class="nav-icon">⌂</div>Trang chủ</div>
+            <div class="nav-item" data-view="tradeView"><div class="nav-icon">▥</div>Giao dịch</div>
+            <div class="nav-item" data-view="historyView"><div class="nav-icon">🏆</div>Lịch sử</div>
+            <div class="nav-item"><div class="nav-icon">💬</div>CSKH</div>
+            <div class="nav-item" data-view="profileView"><div class="nav-icon">◉</div>Cá nhân</div>
+          </div>
+        </section>
+        <!-- Trade View -->
+        <section class="view" id="tradeView">
+          <div class="scroll">
+            <div class="top-card">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="back-btn" data-view="homeView" style="font-size:28px; cursor:pointer;">‹</span>
+                <div class="title" id="tradePair" style="font-size:24px;">AUD/USD</div>
+                <div id="tradeFlags" style="font-size:28px;">🇦🇺 🇺🇸</div>
+              </div>
+              <div style="margin-top:20px; color:#888;">Giá hiện tại</div>
+              <div class="big-price" id="tradePrice">0.64959</div>
+            </div>
+            <div class="chart-box">
+              <div class="candles" id="candles"></div>
+            </div>
+            <div style="padding:10px 16px; display:flex; gap:10px;">
+              <button class="btn-round btn-red" data-order="Tăng" style="flex:1;">Mua tăng</button>
+              <button class="btn-round btn-green" data-order="Giảm" style="flex:1;">Mua giảm</button>
+            </div>
+          </div>
+          <div class="bottom-nav" data-nav>
+            <div class="nav-item" data-view="homeView"><div class="nav-icon">⌂</div>Trang chủ</div>
+            <div class="nav-item active" data-view="tradeView"><div class="nav-icon">▥</div>Giao dịch</div>
+            <div class="nav-item" data-view="historyView"><div class="nav-icon">🏆</div>Lịch sử</div>
+            <div class="nav-item"><div class="nav-icon">💬</div>CSKH</div>
+            <div class="nav-item" data-view="profileView"><div class="nav-icon">◉</div>Cá nhân</div>
+          </div>
+        </section>
+        <!-- History View -->
+        <section class="view" id="historyView">
+          <div class="scroll" style="padding:20px;">
+            <h2>Lịch sử giao dịch</h2>
+            <div id="historyList" style="margin-top:20px;"></div>
+          </div>
+          <div class="bottom-nav" data-nav>
+            <div class="nav-item" data-view="homeView"><div class="nav-icon">⌂</div>Trang chủ</div>
+            <div class="nav-item" data-view="tradeView"><div class="nav-icon">▥</div>Giao dịch</div>
+            <div class="nav-item active" data-view="historyView"><div class="nav-icon">🏆</div>Lịch sử</div>
+            <div class="nav-item"><div class="nav-icon">💬</div>CSKH</div>
+            <div class="nav-item" data-view="profileView"><div class="nav-icon">◉</div>Cá nhân</div>
+          </div>
+        </section>
+        <!-- Profile View -->
+        <section class="view" id="profileView">
+          <div class="scroll" style="padding:20px;">
+            <div style="text-align:center; margin:30px 0;">
+              <div style="font-size:60px; margin-bottom:10px;">👤</div>
+              <div id="profileName" style="font-size:22px; font-weight:bold;">Nguyễn Thị Toàn</div>
+              <div>Số dư: <span id="profileBalance" style="color:var(--gold);">$5,000</span></div>
+            </div>
+            <button id="logoutBtn" style="width:100%; padding:15px; background:#333; color:white; border:none; border-radius:12px; font-size:16px; cursor:pointer;">Đăng xuất</button>
+          </div>
+          <div class="bottom-nav" data-nav>
+            <div class="nav-item" data-view="homeView"><div class="nav-icon">⌂</div>Trang chủ</div>
+            <div class="nav-item" data-view="tradeView"><div class="nav-icon">▥</div>Giao dịch</div>
+            <div class="nav-item" data-view="historyView"><div class="nav-icon">🏆</div>Lịch sử</div>
+            <div class="nav-item"><div class="nav-icon">💬</div>CSKH</div>
+            <div class="nav-item active" data-view="profileView"><div class="nav-icon">◉</div>Cá nhân</div>
+          </div>
+        </section>
+        <!-- Order Overlay -->
+        <div class="overlay" id="orderOverlay">
+          <div class="modal">
+            <div style="padding:20px; text-align:center; border-bottom:1px solid #333;">Xác nhận đặt lệnh <span style="float:right; cursor:pointer;" data-close="orderOverlay">✕</span></div>
+            <div style="padding:20px;">
+              <div id="summaryPair" style="font-size:20px; font-weight:bold;"></div>
+              <div id="summarySide" style="font-size:18px; margin:10px 0;"></div>
+              <div id="summaryPrice"></div>
+              <button id="confirmOrderBtn" class="confirm-btn">Xác nhận lệnh</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
   <script>
-    // === Toàn bộ JavaScript từ phiên bản Pro trước (chart realtime, order, price update, v.v.) ===
-    // Bạn có thể dán nguyên script từ phản hồi trước vào đây.
-
-    // Chỉ cần đảm bảo Crisp đã load ở <head>
-
-    window.onload = () => {
-      console.log("%c✅ Stockinet Pro + Crisp Chat mới đã được tích hợp thành công", "color:#e7c46a;font-weight:700");
-
-      // Login logic, price updates, chart, order handling... (giữ nguyên như trước)
-      document.getElementById("loginBtn").onclick = () => {
-        const user = document.getElementById("loginUsername").value.trim();
-        const pass = document.getElementById("loginPassword").value.trim();
-        if (user === "nguyenthitoan" && pass === "thitoan1982") {
-          // ... logic đăng nhập như trước
-          showToast("Đăng nhập thành công! Crisp Chat sẵn sàng hỗ trợ.");
-        }
-      };
+    const appState = {
+      loggedIn: false,
+      user: { name: 'Nguyễn Thị Toàn', balance: 5000 },
+      selectedPair: 'AUD/USD',
+      selectedSide: 'Tăng',
+      selectedAmount: 100,
+      history: []
     };
-
+    const markets = {
+      crypto: [
+        { pair: 'ETH/USDT', price: '3321.80', flags: '⬡ ◈' },
+        { pair: 'BTC/USDT', price: '60505.66', flags: '₿ ◈' }
+      ],
+      fx: [
+        { pair: 'AUD/USD', price: '0.64959', flags: '🇦🇺 🇺🇸' },
+        { pair: 'USD/JPY', price: '150.69', flags: '🇺🇸 🇯🇵' }
+      ]
+    };
+    const candlesData = [66,67,66.5,67.2,67.8,67.5,68,67.9,67.4,66.8];
+    const views = document.querySelectorAll('.view');
+    const toast = document.getElementById('toast');
     function showToast(msg) {
-      const toast = document.getElementById('toast');
       toast.textContent = msg;
       toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2500);
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+    function setView(id) {
+      if (!appState.loggedIn && id !== 'loginView') return showToast("Vui lòng đăng nhập trước");
+      views.forEach(v => v.classList.toggle('active', v.id === id));
+    }
+    function renderMarketList() {
+      const container = document.getElementById('marketList');
+      const data = markets.fx; // mặc định ngoại hối
+      container.innerHTML = data.map(m => `
+        <div class="market-row" data-pair="${m.pair}">
+          <div><strong>${m.pair}</strong></div>
+          <div style="color:var(--red);">${m.price}</div>
+        </div>
+      `).join('');
+      container.querySelectorAll('.market-row').forEach(row => {
+        row.onclick = () => {
+          appState.selectedPair = row.dataset.pair;
+          document.getElementById('tradePair').textContent = appState.selectedPair;
+          setView('tradeView');
+        };
+      });
+    }
+    function renderCandles() {
+      const el = document.getElementById('candles');
+      el.innerHTML = candlesData.map(h => `<div class="candle-wrap"><div class="body" style="height:${h}px"></div></div>`).join('');
+    }
+    function renderHistory() {
+      const el = document.getElementById('historyList');
+      if (!appState.history.length) {
+        el.innerHTML = '<p style="color:#888; text-align:center;">Chưa có lệnh nào</p>';
+        return;
+      }
+      el.innerHTML = appState.history.map(h => `
+        <div style="padding:12px; border-bottom:1px solid #333;">
+          ${h.pair} - ${h.side} - $${h.amount}
+        </div>
+      `).join('');
+    }
+    // Khởi tạo
+    window.onload = () => {
+      document.getElementById('loginBtn').onclick = () => {
+        const user = document.getElementById('loginUsername').value.trim();
+        const pass = document.getElementById('loginPassword').value.trim();
+        if (user === "nguyenthitoan" && pass === "thitoan1982") {
+          appState.loggedIn = true;
+          showToast("Đăng nhập thành công!");
+          setView('homeView');
+          renderMarketList();
+          renderCandles();
+          renderProfile();
+        } else {
+          showToast("Sai tài khoản hoặc mật khẩu!");
+        }
+      };
+      document.querySelectorAll('[data-view]').forEach(item => {
+        item.onclick = () => setView(item.dataset.view);
+      });
+      document.querySelectorAll('.btn-round').forEach(btn => {
+        btn.onclick = () => {
+          appState.selectedSide = btn.dataset.order;
+          document.getElementById('summaryPair').textContent = appState.selectedPair;
+          document.getElementById('summarySide').textContent = appState.selectedSide;
+          document.getElementById('orderOverlay').classList.add('show');
+        };
+      });
+      document.getElementById('confirmOrderBtn').onclick = () => {
+        appState.history.unshift({
+          pair: appState.selectedPair,
+          side: appState.selectedSide,
+          amount: appState.selectedAmount
+        });
+        document.getElementById('orderOverlay').classList.remove('show');
+        showToast(`Đặt lệnh ${appState.selectedSide} thành công!`);
+        renderHistory();
+      };
+      document.getElementById('logoutBtn').onclick = () => {
+        appState.loggedIn = false;
+        setView('loginView');
+        showToast("Đã đăng xuất");
+      };
+      // Đóng overlay
+      document.querySelectorAll('[data-close]').forEach(el => {
+        el.onclick = () => el.closest('.overlay').classList.remove('show');
+      });
+      showToast("Ứng dụng đã sẵn sàng - Crisp Chat đã được tích hợp");
+    };
+    function renderProfile() {
+      document.getElementById('profileName').textContent = appState.user.name;
+      document.getElementById('profileBalance').textContent = '$' + appState.user.balance;
     }
   </script>
 </body>
-</html>
+</html> <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="590299e5-00f4-4e5e-a73c-718737ab7c71";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
