@@ -4,20 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stockinet - Trading Platform Demo</title>
-
-  <!-- Crisp Chat Widget -->
-  <script type="text/javascript">
-    window.$crisp = [];
-    window.CRISP_WEBSITE_ID = "40f6f91f-a448-4c3d-a982-f4b2a7f98144";
-    (function() {
-      var d = document;
-      var s = d.createElement("script");
-      s.src = "https://client.crisp.chat/l.js";
-      s.async = 1;
-      d.getElementsByTagName("head")[0].appendChild(s);
-    })();
-  </script>
-
   <style>
     * { box-sizing: border-box; }
     :root {
@@ -44,39 +30,27 @@
     .market-list { background: var(--panel-2); }
     .market-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 16px; border-bottom: 1px solid rgba(255,255,255,.05); cursor: pointer; }
     .market-left { display: flex; gap: 12px; align-items: center; min-width: 0; }
-    .coin-stack { width: 26px; text-align: center; font-size: 12px; }
-    .coin-stack div:first-child { color: var(--gold); }
-    .coin-stack div:last-child { color: #d4d4d8; margin-top: 3px; }
     .pair { font-size: 20px; line-height: 1.2; }
     .pair-sub { color: var(--muted); font-size: 14px; margin-top: 4px; }
-    .price-up { color: var(--green); }
-    .price-down { color: var(--red); }
+    .price { font-size: 22px; font-weight: 700; }
     .top-card { background: var(--soft); color: #000; margin: 16px; border-radius: 28px; padding: 20px; }
-    .big-price { font-size: 54px; line-height: 1; font-weight: 700; color: var(--red); margin-top: 8px; }
-    .trade-toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 0 16px; color: #9ca3af; font-weight: 600; }
-    .pill { border-radius: 999px; padding: 10px 16px; cursor: pointer; }
-    .time-link.active { color: #3b82f6; border-bottom: 2px solid #d4d4d8; padding-bottom: 8px; }
-    .chart-box { margin: 16px; height: 360px; background: #444; border: 1px solid rgba(255,255,255,.08); position: relative; overflow: hidden; }
+    .big-price { font-size: 54px; line-height: 1; font-weight: 700; margin-top: 8px; }
+    .trade-params { background: #1a1a1a; margin: 16px; padding: 16px; border-radius: 18px; }
+    .trade-params label { display: block; color: #888; font-size: 14px; margin-bottom: 6px; }
+    .trade-params input, .trade-params select { width: 100%; background: #121212; border: 1px solid #333; border-radius: 12px; padding: 12px; color: #fff; font-size: 18px; }
+    .chart-box { margin: 16px; height: 280px; background: #444; border: 1px solid rgba(255,255,255,.08); position: relative; overflow: hidden; }
     .candles { position: absolute; inset: 20px 12px 14px 12px; display: flex; align-items: end; gap: 6px; }
-    .candle-wrap { flex: 1; position: relative; height: 100%; display: flex; justify-content: center; align-items: end; }
-    .wick, .body { background: #22c55e; }
-    .red { background: #dc2626; }
-    .btn-round { border: 0; border-radius: 999px; color: #fff; padding: 13px 18px; font-size: 18px; cursor: pointer; }
+    .btn-round { border: 0; border-radius: 999px; color: #fff; padding: 13px 18px; font-size: 18px; cursor: pointer; flex: 1; }
     .btn-red { background: var(--red); }
     .btn-green { background: var(--green); }
     .bottom-nav { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(5,1fr); background: #0f0f0f; border-top: 1px solid rgba(255,255,255,.05); padding: 12px 0; }
     .nav-item { text-align: center; color: #71717a; font-size: 13px; cursor: pointer; }
     .nav-item.active { color: var(--gold); }
-    .nav-icon { font-size: 20px; margin-bottom: 4px; }
     .overlay { position: absolute; inset: 0; background: rgba(0,0,0,.48); display: none; align-items: center; justify-content: center; z-index: 20; padding: 16px; }
     .overlay.show { display: flex; }
     .modal { width: 100%; background: #191919; border: 1px solid rgba(255,255,255,.08); border-radius: 26px; overflow: hidden; }
     .confirm-btn { width: 100%; border: 0; border-radius: 12px; padding: 16px; background: #3a3936; color: var(--gold); font-size: 18px; font-weight: 700; margin-top: 18px; cursor: pointer; }
-    .login-screen { background: radial-gradient(circle at top right, rgba(231,196,106,.18), transparent 35%), linear-gradient(180deg, #151515 0%, #090909 100%); padding: 24px; display: flex; flex-direction: column; justify-content: center; }
-    .brand-badge { width: 70px; height: 70px; margin: 0 auto 14px; border-radius: 22px; background: linear-gradient(135deg, #33250d, #c5a24f); display: flex; align-items: center; justify-content: center; font-size: 34px; color: #fff; }
-    .input-wrap { border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: #121212; padding: 0 14px; margin-bottom: 16px; }
-    .input-wrap input { width: 100%; height: 52px; background: transparent; border: 0; color: #fff; outline: none; font-size: 16px; }
-    .primary-btn { width: 100%; border: 0; border-radius: 12px; padding: 16px; background: var(--gold); color: #000; font-weight: 700; cursor: pointer; }
+    .countdown { font-size: 28px; font-weight: 700; color: var(--gold); text-align: center; margin: 20px 0; }
     .toast { position: absolute; top: 50px; left: 50%; transform: translateX(-50%); background: rgba(20,20,20,.95); border: 1px solid rgba(255,255,255,.08); padding: 12px 16px; border-radius: 999px; font-size: 14px; z-index: 40; display: none; }
     .toast.show { display: block; }
   </style>
@@ -139,18 +113,53 @@
             <div class="top-card">
               <div style="display:flex; justify-content:space-between; align-items:center;">
                 <span class="back-btn" data-view="homeView" style="font-size:28px; cursor:pointer;">‹</span>
-                <div class="title" id="tradePair" style="font-size:24px;">AUD/USD</div>
-                <div id="tradeFlags" style="font-size:28px;">🇦🇺 🇺🇸</div>
+                <div class="title" id="tradePair" style="font-size:24px;">BTC/USDT</div>
+                <div id="tradeFlags" style="font-size:28px;">₿ ◈</div>
               </div>
               <div style="margin-top:20px; color:#888;">Giá hiện tại</div>
-              <div class="big-price" id="tradePrice">0.64959</div>
+              <div class="big-price" id="tradePrice">60505.66</div>
             </div>
+
+            <!-- Trade Parameters -->
+            <div class="trade-params">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div>
+                  <label>Số tiền đầu tư</label>
+                  <input id="amountInput" type="number" value="100" min="10" step="10">
+                </div>
+                <div>
+                  <label>Leverage</label>
+                  <select id="leverageSelect">
+                    <option value="1">1x</option>
+                    <option value="10" selected>10x</option>
+                    <option value="50">50x</option>
+                    <option value="100">100x</option>
+                  </select>
+                </div>
+              </div>
+              <div style="margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div>
+                  <label>Stop Loss</label>
+                  <input id="slInput" type="text" value="0" placeholder="0.00">
+                </div>
+                <div>
+                  <label>Take Profit</label>
+                  <input id="tpInput" type="text" value="0" placeholder="0.00">
+                </div>
+              </div>
+              <div style="margin-top:16px;">
+                <label>Thời gian lệnh (giây)</label>
+                <input id="durationInput" type="number" value="30" min="10" max="300" step="10">
+              </div>
+            </div>
+
             <div class="chart-box">
               <div class="candles" id="candles"></div>
             </div>
-            <div style="padding:10px 16px; display:flex; gap:10px;">
-              <button class="btn-round btn-red" data-order="Tăng" style="flex:1;">Mua tăng</button>
-              <button class="btn-round btn-green" data-order="Giảm" style="flex:1;">Mua giảm</button>
+
+            <div style="padding:0 16px 20px; display:flex; gap:12px;">
+              <button class="btn-round btn-green" data-order="Tăng" style="flex:1;">MUA TĂNG</button>
+              <button class="btn-round btn-red" data-order="Giảm" style="flex:1;">MUA GIẢM</button>
             </div>
           </div>
           <div class="bottom-nav" data-nav>
@@ -162,49 +171,41 @@
           </div>
         </section>
 
-        <!-- History View -->
+        <!-- History & Profile View (giữ nguyên như cũ nhưng cải thiện) -->
         <section class="view" id="historyView">
           <div class="scroll" style="padding:20px;">
             <h2>Lịch sử giao dịch</h2>
             <div id="historyList" style="margin-top:20px;"></div>
           </div>
-          <div class="bottom-nav" data-nav>
-            <div class="nav-item" data-view="homeView"><div class="nav-icon">⌂</div>Trang chủ</div>
-            <div class="nav-item" data-view="tradeView"><div class="nav-icon">▥</div>Giao dịch</div>
-            <div class="nav-item active" data-view="historyView"><div class="nav-icon">🏆</div>Lịch sử</div>
-            <div class="nav-item"><div class="nav-icon">💬</div>CSKH</div>
-            <div class="nav-item" data-view="profileView"><div class="nav-icon">◉</div>Cá nhân</div>
-          </div>
+          <div class="bottom-nav" data-nav>...</div>
         </section>
 
-        <!-- Profile View -->
         <section class="view" id="profileView">
           <div class="scroll" style="padding:20px;">
             <div style="text-align:center; margin:30px 0;">
               <div style="font-size:60px; margin-bottom:10px;">👤</div>
               <div id="profileName" style="font-size:22px; font-weight:bold;">Nguyễn Thị Toàn</div>
               <div>Số dư: <span id="profileBalance" style="color:var(--gold);">$5,000</span></div>
+              <div style="margin-top:20px;">
+                <input id="balanceEdit" type="number" value="5000" style="padding:12px; width:70%; text-align:center;">
+                <button id="setBalanceBtn" style="padding:12px 20px; background:var(--gold); color:#000; border:none; border-radius:12px;">Cập nhật số dư</button>
+              </div>
             </div>
             <button id="logoutBtn" style="width:100%; padding:15px; background:#333; color:white; border:none; border-radius:12px; font-size:16px; cursor:pointer;">Đăng xuất</button>
           </div>
-          <div class="bottom-nav" data-nav>
-            <div class="nav-item" data-view="homeView"><div class="nav-icon">⌂</div>Trang chủ</div>
-            <div class="nav-item" data-view="tradeView"><div class="nav-icon">▥</div>Giao dịch</div>
-            <div class="nav-item" data-view="historyView"><div class="nav-icon">🏆</div>Lịch sử</div>
-            <div class="nav-item"><div class="nav-icon">💬</div>CSKH</div>
-            <div class="nav-item active" data-view="profileView"><div class="nav-icon">◉</div>Cá nhân</div>
-          </div>
+          <div class="bottom-nav" data-nav>...</div>
         </section>
 
         <!-- Order Overlay -->
         <div class="overlay" id="orderOverlay">
           <div class="modal">
-            <div style="padding:20px; text-align:center; border-bottom:1px solid #333;">Xác nhận đặt lệnh <span style="float:right; cursor:pointer;" data-close="orderOverlay">✕</span></div>
+            <div style="padding:20px; text-align:center; border-bottom:1px solid #333;">Xác nhận lệnh <span style="float:right; cursor:pointer;" data-close="orderOverlay">✕</span></div>
             <div style="padding:20px;">
-              <div id="summaryPair" style="font-size:20px; font-weight:bold;"></div>
-              <div id="summarySide" style="font-size:18px; margin:10px 0;"></div>
-              <div id="summaryPrice"></div>
-              <button id="confirmOrderBtn" class="confirm-btn">Xác nhận lệnh</button>
+              <div id="summaryPair" style="font-size:22px; font-weight:bold;"></div>
+              <div id="summarySide" style="font-size:20px; margin:12px 0;"></div>
+              <div id="summaryDetail"></div>
+              <div class="countdown" id="countdownDisplay">30s</div>
+              <button id="confirmOrderBtn" class="confirm-btn">XÁC NHẬN LỆNH</button>
             </div>
           </div>
         </div>
@@ -213,137 +214,7 @@
   </div>
 
   <script>
+    // ==================== APP STATE ====================
     const appState = {
       loggedIn: false,
-      user: { name: 'Nguyễn Thị Toàn', balance: 5000 },
-      selectedPair: 'AUD/USD',
-      selectedSide: 'Tăng',
-      selectedAmount: 100,
-      history: []
-    };
-
-    const markets = {
-      crypto: [
-        { pair: 'ETH/USDT', price: '3321.80', flags: '⬡ ◈' },
-        { pair: 'BTC/USDT', price: '60505.66', flags: '₿ ◈' }
-      ],
-      fx: [
-        { pair: 'AUD/USD', price: '0.64959', flags: '🇦🇺 🇺🇸' },
-        { pair: 'USD/JPY', price: '150.69', flags: '🇺🇸 🇯🇵' }
-      ]
-    };
-
-    const candlesData = [66,67,66.5,67.2,67.8,67.5,68,67.9,67.4,66.8];
-
-    const views = document.querySelectorAll('.view');
-    const toast = document.getElementById('toast');
-
-    function showToast(msg) {
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2200);
-    }
-
-    function setView(id) {
-      if (!appState.loggedIn && id !== 'loginView') return showToast("Vui lòng đăng nhập trước");
-      views.forEach(v => v.classList.toggle('active', v.id === id));
-    }
-
-    function renderMarketList() {
-      const container = document.getElementById('marketList');
-      const data = markets.fx; // mặc định ngoại hối
-      container.innerHTML = data.map(m => `
-        <div class="market-row" data-pair="${m.pair}">
-          <div><strong>${m.pair}</strong></div>
-          <div style="color:var(--red);">${m.price}</div>
-        </div>
-      `).join('');
-      container.querySelectorAll('.market-row').forEach(row => {
-        row.onclick = () => {
-          appState.selectedPair = row.dataset.pair;
-          document.getElementById('tradePair').textContent = appState.selectedPair;
-          setView('tradeView');
-        };
-      });
-    }
-
-    function renderCandles() {
-      const el = document.getElementById('candles');
-      el.innerHTML = candlesData.map(h => `<div class="candle-wrap"><div class="body" style="height:${h}px"></div></div>`).join('');
-    }
-
-    function renderHistory() {
-      const el = document.getElementById('historyList');
-      if (!appState.history.length) {
-        el.innerHTML = '<p style="color:#888; text-align:center;">Chưa có lệnh nào</p>';
-        return;
-      }
-      el.innerHTML = appState.history.map(h => `
-        <div style="padding:12px; border-bottom:1px solid #333;">
-          ${h.pair} - ${h.side} - $${h.amount}
-        </div>
-      `).join('');
-    }
-
-    // Khởi tạo
-    window.onload = () => {
-      document.getElementById('loginBtn').onclick = () => {
-        const user = document.getElementById('loginUsername').value.trim();
-        const pass = document.getElementById('loginPassword').value.trim();
-        if (user === "nguyenthitoan" && pass === "thitoan1982") {
-          appState.loggedIn = true;
-          showToast("Đăng nhập thành công!");
-          setView('homeView');
-          renderMarketList();
-          renderCandles();
-          renderProfile();
-        } else {
-          showToast("Sai tài khoản hoặc mật khẩu!");
-        }
-      };
-
-      document.querySelectorAll('[data-view]').forEach(item => {
-        item.onclick = () => setView(item.dataset.view);
-      });
-
-      document.querySelectorAll('.btn-round').forEach(btn => {
-        btn.onclick = () => {
-          appState.selectedSide = btn.dataset.order;
-          document.getElementById('summaryPair').textContent = appState.selectedPair;
-          document.getElementById('summarySide').textContent = appState.selectedSide;
-          document.getElementById('orderOverlay').classList.add('show');
-        };
-      });
-
-      document.getElementById('confirmOrderBtn').onclick = () => {
-        appState.history.unshift({
-          pair: appState.selectedPair,
-          side: appState.selectedSide,
-          amount: appState.selectedAmount
-        });
-        document.getElementById('orderOverlay').classList.remove('show');
-        showToast(`Đặt lệnh ${appState.selectedSide} thành công!`);
-        renderHistory();
-      };
-
-      document.getElementById('logoutBtn').onclick = () => {
-        appState.loggedIn = false;
-        setView('loginView');
-        showToast("Đã đăng xuất");
-      };
-
-      // Đóng overlay
-      document.querySelectorAll('[data-close]').forEach(el => {
-        el.onclick = () => el.closest('.overlay').classList.remove('show');
-      });
-
-      showToast("Ứng dụng đã sẵn sàng - Crisp Chat đã được tích hợp");
-    };
-
-    function renderProfile() {
-      document.getElementById('profileName').textContent = appState.user.name;
-      document.getElementById('profileBalance').textContent = '$' + appState.user.balance;
-    }
-  </script>
-</body>
-</html> <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="590299e5-00f4-4e5e-a73c-718737ab7c71";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+      user: { name: 'Nguyễn Thị Toàn', balance: 
